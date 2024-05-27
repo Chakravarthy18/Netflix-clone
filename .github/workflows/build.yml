@@ -40,12 +40,20 @@ jobs:
         env:
           DOCKER_CLI_ACI: 1
   deploy:
-      needs: build
-      runs-on: [aws-netflix]
-      steps:
-      - name: Pull the docker image
+   needs: build  
+   runs-on: [self-hosted]
+   steps:
+      - name: docker pull image
         run: docker pull chakri18/netflix:latest
-      - name: Trivy image scan
-        run: trivy image chakri18/netflix:latest
-      - name: Run the container netflix
-        run: docker run -d --name netflix -p 8081:80 chakri18/netflix:latest
+
+      - name: Image scan
+        run: trivy image chakri18/netflix:latest > trivyimagedeploy.txt  
+
+      - name: Deploy to container
+        run: docker run -d --name game -p 3000:3000 chakri18/netflix:latest
+
+      - name: Update kubeconfig
+        run: aws eks --region us-east-1 update-kubeconfig --name eks24-cluster
+
+      - name: Deploy to kubernetes
+        run: kubectl apply -f deployment-service.yml
