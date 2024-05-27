@@ -57,7 +57,7 @@ jobs:
           AWS_DEFAULT_OUTPUT: json
 
       - name: Update kubeconfig
-        run: aws eks --region us-east-1 update-kubeconfig --name eks24-cluster
+        run: sudo bash -c 'AWS_CONFIG_FILE=/root/.aws/config aws eks --region us-east-1 update-kubeconfig --name eks24-cluster'
 
       - name: Deploy to kubernetes
         run: kubectl apply -f deployment.yml
