@@ -47,7 +47,7 @@ jobs:
         run: docker pull chakri18/netflix:latest
         
       - name: Deploy to container
-        run: docker run -d --name game -p 3001:3001 chakri18/netflix:latest
+        run: docker run -d --name movie -p 3001:3001 chakri18/netflix:latest
       - name: AWS configure
         run: aws configure
         env:
