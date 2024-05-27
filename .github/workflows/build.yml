@@ -45,10 +45,7 @@ jobs:
    steps:
       - name: docker pull image
         run: docker pull chakri18/netflix:latest
-
-      - name: Image scan
-        run: trivy image chakri18/netflix:latest > trivyimagedeploy.txt  
-
+        
       - name: Deploy to container
         run: docker run -d --name game -p 3000:3000 chakri18/netflix:latest
 
