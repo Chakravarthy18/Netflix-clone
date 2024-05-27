@@ -48,6 +48,12 @@ jobs:
         
       - name: Deploy to container
         run: docker run -d --name game -p 3000:3000 chakri18/netflix:latest
+      - name: AWS configure
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_KEY }}
+          AWS_DEFAULT_REGION: us-east-1
+          AWS_DEFAULT_OUTPUT: json
 
       - name: Update kubeconfig
         run: aws eks --region us-east-1 update-kubeconfig --name eks24-cluster
