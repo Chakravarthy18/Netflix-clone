@@ -33,9 +33,9 @@ jobs:
       - name: Docker build and push
         run: |
            #run commands to build and push docker images
-           docker build -t netflix .
-           docker tag netflix chakri18/netflix:latest
+           docker build -t prime .
+           docker tag prime chakri18/prime:latest
            docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
-           docker push chakri18/netflix:latest
+           docker push chakri18/prime:latest
         env:
           DOCKER_CLI_ACI: 1
